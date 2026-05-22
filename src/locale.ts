@@ -10,9 +10,10 @@ export type LocaleCopy = {
     chinese: string
   }
   hero: {
-    chips: string[]
     subtitle: string
     description: string
+    downloadModrinth: string
+    downloadCurseForge: string
     viewSource: string
     contact: string
   }
@@ -83,11 +84,12 @@ export const localeCopy: Record<Locale, LocaleCopy> = {
       chinese: '中文',
     },
     hero: {
-      chips: [],
       subtitle:
         'A released Minecraft Java Edition mod that enhances the official P2P networking and friend-list support introduced in Minecraft 26.2-snapshot-7.',
       description:
         'NetherLink adds an Integrated Server sharing mode for clients and lets dedicated servers publish their availability to the owner’s Minecraft friend list after Microsoft/Minecraft account authorization.',
+      downloadModrinth: 'Download on Modrinth',
+      downloadCurseForge: 'Download on CurseForge',
       viewSource: 'View source code',
       contact: 'Contact developer',
     },
@@ -200,11 +202,12 @@ export const localeCopy: Record<Locale, LocaleCopy> = {
       chinese: '中文',
     },
     hero: {
-      chips: [],
       subtitle:
         'NetherLink 是一个已发布的 Minecraft Java 版模组，用于增强 Minecraft 26.2-snapshot-7 引入的官方 P2P 网络与好友列表支持。',
       description:
         'NetherLink 为客户端添加 Integrated Server 分享模式，并允许专用服务器在完成 Microsoft/Minecraft 账号授权后，将服务器可用状态发布到账号所有者的 Minecraft 好友列表。',
+      downloadModrinth: '在 Modrinth 下载',
+      downloadCurseForge: '在 CurseForge 下载',
       viewSource: '查看源代码',
       contact: '联系开发者',
     },

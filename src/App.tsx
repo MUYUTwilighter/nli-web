@@ -1,5 +1,6 @@
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
+import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded'
 import GitHubIcon from '@mui/icons-material/GitHub'
 import KeyRoundedIcon from '@mui/icons-material/KeyRounded'
 import LockRoundedIcon from '@mui/icons-material/LockRounded'
@@ -12,7 +13,6 @@ import {
   AppBar,
   Box,
   Button,
-  Chip,
   Container,
   CssBaseline,
   Divider,
@@ -289,16 +289,6 @@ function App() {
             <Grid container spacing={{xs: 5, md: 8}} sx={{alignItems: 'center'}}>
               <Grid size={{xs: 12, md: 7}}>
                 <Stack spacing={3}>
-                  <Stack direction="row" spacing={1} useFlexGap sx={{flexWrap: 'wrap'}}>
-                    {copy.hero.chips.map((chip, index) => (
-                      <Chip
-                        key={chip}
-                        label={chip}
-                        color={index === 0 ? 'primary' : 'default'}
-                        variant={index === 0 ? 'filled' : 'outlined'}
-                      />
-                    ))}
-                  </Stack>
                   <Typography variant="h1" sx={{fontSize: {xs: 44, sm: 58, md: 76}}}>
                     NetherLink
                   </Typography>
@@ -310,10 +300,33 @@ function App() {
                   </Typography>
                   <Stack direction={{xs: 'column', sm: 'row'}} spacing={1.5}>
                     <Button
-                      href="https://github.com/MUYUTwilighter/NetherLink"
+                      href="https://modrinth.com/mod/netherlink-nli/versions"
                       target="_blank"
                       rel="noreferrer"
                       variant="contained"
+                      size="large"
+                      startIcon={<DownloadRoundedIcon/>}
+                    >
+                      {copy.hero.downloadModrinth}
+                    </Button>
+                    <Button
+                      href="https://www.curseforge.com/minecraft/mc-mods/netherlink-nli/files/all"
+                      target="_blank"
+                      rel="noreferrer"
+                      variant="outlined"
+                      size="large"
+                      startIcon={<DownloadRoundedIcon/>}
+                    >
+                      {copy.hero.downloadCurseForge}
+                    </Button>
+                  </Stack>
+                  <Stack direction={{xs: 'column', sm: 'row'}} spacing={1.5}>
+                    <Button
+                      href="https://github.com/MUYUTwilighter/NetherLink"
+                      target="_blank"
+                      rel="noreferrer"
+                      variant="text"
+                      color="inherit"
                       size="large"
                       endIcon={<ArrowForwardRoundedIcon/>}
                     >
@@ -321,7 +334,8 @@ function App() {
                     </Button>
                     <Button
                       href="mailto:1484605372@qq.com"
-                      variant="outlined"
+                      variant="text"
+                      color="inherit"
                       size="large"
                       startIcon={<MailRoundedIcon/>}
                     >
