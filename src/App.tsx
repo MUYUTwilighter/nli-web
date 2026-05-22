@@ -159,6 +159,48 @@ function CheckedList({items}: { items: string[] }) {
   )
 }
 
+function CommandList({
+                       commands,
+                     }: {
+  commands: Array<{
+    command: string
+    description: string
+  }>
+}) {
+  return (
+    <List disablePadding>
+      {commands.map((item) => (
+        <ListItem key={item.command} disableGutters sx={{alignItems: 'flex-start', py: 0.85}}>
+          <ListItemText
+            primary={
+              <Typography
+                component="code"
+                sx={{
+                  display: 'inline-flex',
+                  px: 1,
+                  py: 0.35,
+                  borderRadius: 1,
+                  bgcolor: 'rgba(255,255,255,0.08)',
+                  color: 'secondary.main',
+                  fontFamily: 'ui-monospace, SFMono-Regular, Consolas, monospace',
+                  fontSize: 14,
+                }}
+              >
+                {item.command}
+              </Typography>
+            }
+            secondary={
+              <Typography color="text.secondary" sx={{lineHeight: 1.55, mt: 0.75}}>
+                {item.description}
+              </Typography>
+            }
+          />
+        </ListItem>
+      ))}
+    </List>
+  )
+}
+
 function App() {
   const { locale, setLocale, copy, localeOptions } = useLocale()
 
@@ -316,15 +358,50 @@ function App() {
           <Container maxWidth="lg" sx={{py: {xs: 6, md: 9}}}>
             <Grid container spacing={3}>
               <Grid size={{xs: 12, md: 6}}>
-                <InfoCard icon={<PublicRoundedIcon/>} title={copy.sections.provides}>
-                  <CheckedList items={copy.lists.features}/>
+                <InfoCard icon={<PublicRoundedIcon/>} title={copy.sections.clientFeatures}>
+                  <CheckedList items={copy.lists.clientFeatures}/>
                 </InfoCard>
               </Grid>
+              <Grid size={{xs: 12, md: 6}}>
+                <InfoCard icon={<StorageRoundedIcon/>} title={copy.sections.serverFeatures}>
+                  <CheckedList items={copy.lists.serverFeatures}/>
+                </InfoCard>
+              </Grid>
+            </Grid>
+          </Container>
+
+          <Box sx={{bgcolor: 'rgba(255,255,255,0.025)'}}>
+            <Container maxWidth="lg" sx={{py: {xs: 6, md: 9}}}>
+              <Grid container spacing={3} sx={{mb: {xs: 3, md: 4}}}>
+                <Grid size={{xs: 12, md: 6}}>
+                  <InfoCard icon={<PublicRoundedIcon/>} title={copy.sections.clientUsage}>
+                    <CheckedList items={copy.lists.clientSteps}/>
+                  </InfoCard>
+                </Grid>
+                <Grid size={{xs: 12, md: 6}}>
+                  <InfoCard icon={<KeyRoundedIcon/>} title={copy.sections.serverUsage}>
+                    <CheckedList items={copy.lists.serverSteps}/>
+                  </InfoCard>
+                </Grid>
+              </Grid>
+              <InfoCard icon={<SecurityRoundedIcon/>} title={copy.sections.serverCommands}>
+                <CommandList commands={copy.lists.serverCommands}/>
+              </InfoCard>
+            </Container>
+          </Box>
+
+          <Container maxWidth="lg" sx={{py: {xs: 6, md: 9}}}>
+            <Grid container spacing={3}>
               <Grid size={{xs: 12, md: 6}}>
                 <InfoCard icon={<KeyRoundedIcon/>} title={copy.sections.authRequired}>
                   <Typography color="text.secondary" sx={{lineHeight: 1.7}}>
                     {copy.sections.authRequiredBody}
                   </Typography>
+                </InfoCard>
+              </Grid>
+              <Grid size={{xs: 12, md: 6}}>
+                <InfoCard icon={<LockRoundedIcon/>} title={copy.sections.accountStorage}>
+                  <CheckedList items={copy.lists.privacyPoints}/>
                 </InfoCard>
               </Grid>
             </Grid>
@@ -360,12 +437,6 @@ function App() {
               </Grid>
             </Container>
           </Box>
-
-          <Container maxWidth="lg" sx={{py: {xs: 6, md: 9}}}>
-            <InfoCard icon={<LockRoundedIcon/>} title={copy.sections.privacySecurity}>
-              <CheckedList items={copy.lists.privacyPoints}/>
-            </InfoCard>
-          </Container>
         </Box>
 
         <Box
