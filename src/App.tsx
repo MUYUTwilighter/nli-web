@@ -7,6 +7,7 @@ import MailRoundedIcon from '@mui/icons-material/MailRounded'
 import PublicRoundedIcon from '@mui/icons-material/PublicRounded'
 import SecurityRoundedIcon from '@mui/icons-material/SecurityRounded'
 import StorageRoundedIcon from '@mui/icons-material/StorageRounded'
+import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded'
 import {
   AppBar,
   Box,
@@ -21,13 +22,18 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  MenuItem,
   Paper,
+  Select,
   Stack,
   ThemeProvider,
   Toolbar,
   Typography,
   createTheme,
 } from '@mui/material'
+import type { SelectChangeEvent } from '@mui/material'
+import type { Locale } from './locale'
+import { useLocale } from './locale'
 
 const theme = createTheme({
   palette: {
@@ -92,35 +98,6 @@ const theme = createTheme({
   },
 })
 
-const features = [
-  'Add an Integrated Server sharing mode for single-player worlds.',
-  'Allow approved friends to request and join shared worlds.',
-  'Link a dedicated server with a Microsoft/Minecraft account.',
-  'Publish dedicated server availability to the owner’s Minecraft friend list.',
-]
-
-const authReasons = [
-  'Verify the Minecraft profile associated with the authorized account.',
-  'Obtain Minecraft Services access tokens after explicit authorization.',
-  'Publish server presence on behalf of the authorized account.',
-  'Interact with Minecraft friend list, presence, and signaling services.',
-]
-
-const handledData = [
-  'Microsoft refresh token',
-  'Minecraft Services access token',
-  'Token expiration timestamps',
-  'Minecraft profile UUID and profile name',
-  'Xbox user hash or related authentication metadata required for token exchange',
-]
-
-const privacyPoints = [
-  'NetherLink never asks for or stores Microsoft account passwords.',
-  'Login is performed through Microsoft’s official OAuth device code flow.',
-  'Tokens are stored locally on the Minecraft server where the mod is installed.',
-  'Authentication data is used only to communicate with Microsoft, Xbox Live, and Minecraft Services.',
-]
-
 function InfoCard({
                     icon,
                     title,
@@ -183,6 +160,8 @@ function CheckedList({items}: { items: string[] }) {
 }
 
 function App() {
+  const { locale, setLocale, copy, localeOptions } = useLocale()
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline/>
@@ -203,6 +182,45 @@ function App() {
               <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
                 NetherLink
               </Typography>
+              <Select
+                size="small"
+                value={locale}
+                aria-label={copy.nav.language}
+                onChange={(event: SelectChangeEvent) => {
+                  setLocale(event.target.value as Locale)
+                }}
+                renderValue={(selected) => (
+                  <Stack direction="row" spacing={0.75} sx={{ alignItems: 'center' }}>
+                    <TranslateRoundedIcon fontSize="small" />
+                    <span>
+                      {localeOptions.find((option) => option.value === selected)?.label}
+                    </span>
+                  </Stack>
+                )}
+                sx={{
+                  minWidth: { xs: 96, sm: 132 },
+                  color: 'text.primary',
+                  bgcolor: 'rgba(255,255,255,0.04)',
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'rgba(255,255,255,0.16)',
+                  },
+                  '&:hover .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'rgba(255,255,255,0.32)',
+                  },
+                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'primary.light',
+                  },
+                  '& .MuiSelect-icon': {
+                    color: 'text.secondary',
+                  },
+                }}
+              >
+                {localeOptions.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
               <Button
                 href="https://github.com/MUYUTwilighter/NetherLink"
                 target="_blank"
@@ -211,7 +229,7 @@ function App() {
                 startIcon={<GitHubIcon/>}
                 sx={{display: {xs: 'none', sm: 'inline-flex'}}}
               >
-                Source
+                {copy.nav.source}
               </Button>
             </Toolbar>
           </Container>
@@ -230,22 +248,23 @@ function App() {
               <Grid size={{xs: 12, md: 7}}>
                 <Stack spacing={3}>
                   <Stack direction="row" spacing={1} useFlexGap sx={{flexWrap: 'wrap'}}>
-                    <Chip label="Minecraft Java Edition mod" color="primary"/>
-                    <Chip label="Server presence" variant="outlined"/>
-                    <Chip label="OAuth device code login" variant="outlined"/>
+                    {copy.hero.chips.map((chip, index) => (
+                      <Chip
+                        key={chip}
+                        label={chip}
+                        color={index === 0 ? 'primary' : 'default'}
+                        variant={index === 0 ? 'filled' : 'outlined'}
+                      />
+                    ))}
                   </Stack>
                   <Typography variant="h1" sx={{fontSize: {xs: 44, sm: 58, md: 76}}}>
                     NetherLink
                   </Typography>
                   <Typography variant="h5" color="text.secondary" sx={{lineHeight: 1.55}}>
-                    A Minecraft Java Edition server-side and client-side mod that extends the
-                    official friend list and peer-to-peer networking features introduced in
-                    Minecraft 26.2-snapshot-7.
+                    {copy.hero.subtitle}
                   </Typography>
                   <Typography color="text.secondary" sx={{lineHeight: 1.7}}>
-                    NetherLink helps authenticated Minecraft account owners authorize a dedicated
-                    server to act as their server presence host, publish availability, receive friend
-                    join requests, and support approved connection flows.
+                    {copy.hero.description}
                   </Typography>
                   <Stack direction={{xs: 'column', sm: 'row'}} spacing={1.5}>
                     <Button
@@ -256,7 +275,7 @@ function App() {
                       size="large"
                       endIcon={<ArrowForwardRoundedIcon/>}
                     >
-                      View source code
+                      {copy.hero.viewSource}
                     </Button>
                     <Button
                       href="mailto:1484605372@qq.com"
@@ -264,7 +283,7 @@ function App() {
                       size="large"
                       startIcon={<MailRoundedIcon/>}
                     >
-                      Contact developer
+                      {copy.hero.contact}
                     </Button>
                   </Stack>
                 </Stack>
@@ -297,16 +316,14 @@ function App() {
           <Container maxWidth="lg" sx={{py: {xs: 6, md: 9}}}>
             <Grid container spacing={3}>
               <Grid size={{xs: 12, md: 6}}>
-                <InfoCard icon={<PublicRoundedIcon/>} title="What NetherLink Provides">
-                  <CheckedList items={features}/>
+                <InfoCard icon={<PublicRoundedIcon/>} title={copy.sections.provides}>
+                  <CheckedList items={copy.lists.features}/>
                 </InfoCard>
               </Grid>
               <Grid size={{xs: 12, md: 6}}>
-                <InfoCard icon={<KeyRoundedIcon/>} title="Why Authentication Is Required">
+                <InfoCard icon={<KeyRoundedIcon/>} title={copy.sections.authRequired}>
                   <Typography color="text.secondary" sx={{lineHeight: 1.7}}>
-                    Minecraft friend list, presence, and peer-to-peer signaling APIs require
-                    authenticated Minecraft Services access tokens. NetherLink uses Microsoft OAuth
-                    device code login and never asks for the account password.
+                    {copy.sections.authRequiredBody}
                   </Typography>
                 </InfoCard>
               </Grid>
@@ -319,25 +336,23 @@ function App() {
                 <Grid size={{xs: 12, md: 5}}>
                   <Stack spacing={2}>
                     <Typography variant="h2" sx={{fontSize: {xs: 32, md: 44}}}>
-                      Authentication, Data, and Privacy
+                      {copy.sections.privacyTitle}
                     </Typography>
                     <Typography color="text.secondary" sx={{lineHeight: 1.75}}>
-                      User authorization is used only for Minecraft Services communication. NetherLink
-                      does not collect, upload, sell, or share user data with any third-party service
-                      operated by the mod author.
+                      {copy.sections.privacyBody}
                     </Typography>
                   </Stack>
                 </Grid>
                 <Grid size={{xs: 12, md: 7}}>
                   <Grid container spacing={3}>
                     <Grid size={{xs: 12, sm: 6}}>
-                      <InfoCard icon={<SecurityRoundedIcon/>} title="Authorization Purpose">
-                        <CheckedList items={authReasons}/>
+                      <InfoCard icon={<SecurityRoundedIcon/>} title={copy.sections.authPurpose}>
+                        <CheckedList items={copy.lists.authReasons}/>
                       </InfoCard>
                     </Grid>
                     <Grid size={{xs: 12, sm: 6}}>
-                      <InfoCard icon={<StorageRoundedIcon/>} title="Data Stored Locally">
-                        <CheckedList items={handledData}/>
+                      <InfoCard icon={<StorageRoundedIcon/>} title={copy.sections.storedData}>
+                        <CheckedList items={copy.lists.handledData}/>
                       </InfoCard>
                     </Grid>
                   </Grid>
@@ -347,8 +362,8 @@ function App() {
           </Box>
 
           <Container maxWidth="lg" sx={{py: {xs: 6, md: 9}}}>
-            <InfoCard icon={<LockRoundedIcon/>} title="Privacy and Security">
-              <CheckedList items={privacyPoints}/>
+            <InfoCard icon={<LockRoundedIcon/>} title={copy.sections.privacySecurity}>
+              <CheckedList items={copy.lists.privacyPoints}/>
             </InfoCard>
           </Container>
         </Box>
@@ -377,10 +392,10 @@ function App() {
                   <Link href="https://muyucloud.cool" target="_blank" rel="noreferrer" underline="hover" sx={{pl: 1}}>
                     暮宇_Twilighter
                   </Link>
-                  . All rights reserved.
+                  . {copy.footer.rights}
                 </Typography>
                 <Link href="mailto:1484605372@qq.com" underline="hover" color="text.secondary">
-                  Contact Us
+                  {copy.footer.contact}
                 </Link>
                 <Link
                   href="https://github.com/MUYUTwilighter/NetherLink"
@@ -389,7 +404,7 @@ function App() {
                   underline="hover"
                   color="text.secondary"
                 >
-                  GitHub
+                  {copy.footer.github}
                 </Link>
               </Stack>
               <Stack direction="row" spacing={1.5} useFlexGap sx={{flexWrap: 'wrap'}}>
