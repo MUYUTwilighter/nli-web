@@ -22,28 +22,23 @@ export type LocaleCopy = {
     serverFeatures: string
     clientUsage: string
     serverUsage: string
+    terms: string
+    clientAccountUse: string
+    serverAccountUse: string
     serverCommands: string
-    accountStorage: string
-    authRequired: string
-    authRequiredBody: string
-    privacyTitle: string
-    privacyBody: string
-    authPurpose: string
-    storedData: string
-    privacySecurity: string
   }
   lists: {
     clientFeatures: string[]
     serverFeatures: string[]
     clientSteps: string[]
     serverSteps: string[]
+    terms: string[]
+    clientAccountUse: string[]
+    serverAccountUse: string[]
     serverCommands: Array<{
       command: string
       description: string
     }>
-    authReasons: string[]
-    handledData: string[]
-    privacyPoints: string[]
   }
   footer: {
     rights: string
@@ -85,7 +80,7 @@ export const localeCopy: Record<Locale, LocaleCopy> = {
     },
     hero: {
       subtitle:
-        'A released Minecraft Java Edition mod that enhances the official P2P networking and friend-list support introduced in Minecraft 26.2-snapshot-7.',
+        'A Minecraft Java Edition mod that enhances the official P2P networking and friend-list support introduced in Minecraft 26.2-snapshot-7.',
       description:
         'NetherLink adds an Integrated Server sharing mode for clients and lets dedicated servers publish their availability to the owner’s Minecraft friend list after Microsoft/Minecraft account authorization.',
       downloadModrinth: 'Download on Modrinth',
@@ -98,17 +93,10 @@ export const localeCopy: Record<Locale, LocaleCopy> = {
       serverFeatures: 'Server Features',
       clientUsage: 'How to Use on Client',
       serverUsage: 'How to Use on Server',
+      terms: 'Terms and Account Safety',
+      clientAccountUse: 'Client Account Use',
+      serverAccountUse: 'Server Account Use and Storage',
       serverCommands: 'Server Commands',
-      accountStorage: 'Account Storage',
-      authRequired: 'Why Authentication Is Required',
-      authRequiredBody:
-        'Minecraft friend list, presence, and peer-to-peer signaling APIs require authenticated Minecraft Services access tokens. NetherLink uses Microsoft OAuth device code login and never asks for the account password.',
-      privacyTitle: 'Authentication, Data, and Privacy',
-      privacyBody:
-        'User authorization is used only for Minecraft Services communication. NetherLink does not collect, upload, sell, or share user data with any third-party service operated by the mod author.',
-      authPurpose: 'Authorization Purpose',
-      storedData: 'Data Stored Locally',
-      privacySecurity: 'Privacy and Security',
     },
     lists: {
       clientFeatures: [
@@ -136,6 +124,22 @@ export const localeCopy: Record<Locale, LocaleCopy> = {
         'Open the login URL shown in chat or the server console and complete Microsoft authentication.',
         'Run /nli list to check configured accounts and token status.',
         'Run /nli publish to publish the server to the account owner’s Minecraft friend list.',
+      ],
+      terms: [
+        'Only run /nli add on a server you own or fully trust. We can only guarantee that NetherLink itself will not perform malicious actions with login information stored on the server; we are not responsible for account security issues or disputes caused by the server environment, administrators, other mods, plugins, malware, backups, leaks, or any other factors outside NetherLink.',
+        '/nli add links a Microsoft/Minecraft account to that server through device-code login.',
+        'A server administrator with file access may be able to access stored account files, so do not authorize your account on an untrusted public server.',
+        'Use /nli revoke or /nli remove when you no longer want that server to publish presence or keep the stored account.',
+      ],
+      clientAccountUse: [
+        'On the client, NetherLink uses the Minecraft account already logged into your game client.',
+        'The client-side mod uses that account session for integrated-world sharing, friend-list joinability, and presence behavior while sharing.',
+        'The client-side mod does not use /nli add and does not store an additional Microsoft refresh token for server publishing.',
+      ],
+      serverAccountUse: [
+        'On a dedicated server, /nli add authorizes the Microsoft/Minecraft account you choose through Microsoft device-code login.',
+        'The server uses that account to refresh Minecraft Services access, publish the server as a joinable presence, and accept P2P join requests.',
+        'The server stores account data under netherlink/accounts, including refresh/access token data, token expiration data, Minecraft profile UUID/name, and related authentication metadata required for token exchange.',
       ],
       serverCommands: [
         {
@@ -167,26 +171,6 @@ export const localeCopy: Record<Locale, LocaleCopy> = {
           description: 'Remove a stored account.',
         },
       ],
-      authReasons: [
-        'Verify the Minecraft profile associated with the authorized account.',
-        'Obtain Minecraft Services access tokens after explicit authorization.',
-        'Publish server presence on behalf of the authorized account.',
-        'Interact with Minecraft friend list, presence, and signaling services.',
-      ],
-      handledData: [
-        'Microsoft refresh token',
-        'Minecraft Services access token',
-        'Token expiration timestamps',
-        'Minecraft profile UUID and profile name',
-        'Xbox user hash or related authentication metadata required for token exchange',
-      ],
-      privacyPoints: [
-        'NetherLink never asks for or stores Microsoft account passwords.',
-        'Login is performed through Microsoft’s official OAuth device code flow.',
-        'Account data is stored locally under netherlink/accounts on the Minecraft server.',
-        'Authentication data is used only to communicate with Microsoft, Xbox Live, and Minecraft Services.',
-        'Treat account files as credentials and do not share them publicly.',
-      ],
     },
     footer: {
       rights: 'All rights reserved.',
@@ -203,7 +187,7 @@ export const localeCopy: Record<Locale, LocaleCopy> = {
     },
     hero: {
       subtitle:
-        'NetherLink 是一个已发布的 Minecraft Java 版模组，用于增强 Minecraft 26.2-snapshot-7 引入的官方 P2P 网络与好友列表支持。',
+        'NetherLink 是一个 Minecraft Java 版模组，用于增强 Minecraft 26.2-snapshot-7 引入的官方 P2P 网络与好友列表支持。',
       description:
         'NetherLink 为客户端添加 Integrated Server 分享模式，并允许专用服务器在完成 Microsoft/Minecraft 账号授权后，将服务器可用状态发布到账号所有者的 Minecraft 好友列表。',
       downloadModrinth: '在 Modrinth 下载',
@@ -216,17 +200,10 @@ export const localeCopy: Record<Locale, LocaleCopy> = {
       serverFeatures: '服务端功能',
       clientUsage: '客户端使用方式',
       serverUsage: '服务端使用方式',
+      terms: '使用条款与账号安全',
+      clientAccountUse: '客户端账号使用',
+      serverAccountUse: '服务端账号使用与存储',
       serverCommands: '服务端命令',
-      accountStorage: '账号数据存储',
-      authRequired: '为什么需要认证',
-      authRequiredBody:
-        'Minecraft 好友列表、在线状态和点对点信令 API 需要经过认证的 Minecraft Services 访问令牌。NetherLink 使用 Microsoft OAuth 设备码登录，并且不会要求输入账号密码。',
-      privacyTitle: '认证、数据与隐私',
-      privacyBody:
-        '用户授权仅用于与 Minecraft Services 通信。NetherLink 不会收集、上传、出售或分享用户数据给模组作者运营的任何第三方服务。',
-      authPurpose: '授权用途',
-      storedData: '本地存储的数据',
-      privacySecurity: '隐私与安全',
     },
     lists: {
       clientFeatures: [
@@ -254,6 +231,22 @@ export const localeCopy: Record<Locale, LocaleCopy> = {
         '打开聊天栏或服务器控制台中显示的登录 URL，并完成 Microsoft 认证。',
         '运行 /nli list 检查已配置账号和令牌状态。',
         '运行 /nli publish 将服务器发布到账号所有者的 Minecraft 好友列表。',
+      ],
+      terms: [
+        '只在你自己拥有或完全信任的服务器上运行 /nli add。我们只能保证 NetherLink 本身不会对服务端存储的登录信息进行任何恶意行为；对于服务端环境、管理员、其他模组、插件、恶意软件、备份、泄露或任何 NetherLink 之外因素导致的账号安全问题与纠纷，我们概不负责。',
+        '/nli add 会通过设备码登录将一个 Microsoft/Minecraft 账号授权给该服务器。',
+        '拥有服务器文件访问权限的管理员可能可以访问已存储的账号文件，因此不要在不可信的公共服务器上授权你的账号。',
+        '当你不再希望该服务器发布状态或保留账号时，请使用 /nli revoke 或 /nli remove。',
+      ],
+      clientAccountUse: [
+        '在客户端，NetherLink 使用你已经登录到游戏客户端的 Minecraft 账号。',
+        '客户端模组会使用该账号会话来支持集成世界分享、好友列表可加入状态以及分享时的在线状态行为。',
+        '客户端模组不会使用 /nli add，也不会为了服务端发布功能额外存储 Microsoft 刷新令牌。',
+      ],
+      serverAccountUse: [
+        '在专用服务器上，/nli add 会通过 Microsoft 设备码登录授权你选择的 Microsoft/Minecraft 账号。',
+        '服务器会使用该账号刷新 Minecraft Services 访问权限、将服务器发布为可加入状态，并接受 P2P 加入请求。',
+        '服务器会在 netherlink/accounts 下存储账号数据，包括刷新/访问令牌数据、令牌过期数据、Minecraft 档案 UUID/名称，以及令牌交换所需的相关认证元数据。',
       ],
       serverCommands: [
         {
@@ -284,26 +277,6 @@ export const localeCopy: Record<Locale, LocaleCopy> = {
           command: '/nli remove <name>',
           description: '移除已存储账号。',
         },
-      ],
-      authReasons: [
-        '验证授权账号对应的 Minecraft 档案。',
-        '在明确授权后获取 Minecraft Services 访问令牌。',
-        '代表授权账号发布服务器在线状态。',
-        '与 Minecraft 好友列表、在线状态和信令服务交互。',
-      ],
-      handledData: [
-        'Microsoft 刷新令牌',
-        'Minecraft Services 访问令牌',
-        '令牌过期时间戳',
-        'Minecraft 档案 UUID 和档案名称',
-        '令牌交换所需的 Xbox 用户哈希或相关认证元数据',
-      ],
-      privacyPoints: [
-        'NetherLink 绝不会要求或存储 Microsoft 账号密码。',
-        '登录通过 Microsoft 官方 OAuth 设备码流程完成。',
-        '账号数据存储在 Minecraft 服务器本地的 netherlink/accounts 目录下。',
-        '认证数据仅用于与 Microsoft、Xbox Live 和 Minecraft Services 通信。',
-        '请将账号文件视为凭据，不要公开分享。',
       ],
     },
     footer: {

@@ -3,12 +3,12 @@ import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded'
 import GitHubIcon from '@mui/icons-material/GitHub'
 import KeyRoundedIcon from '@mui/icons-material/KeyRounded'
-import LockRoundedIcon from '@mui/icons-material/LockRounded'
 import MailRoundedIcon from '@mui/icons-material/MailRounded'
 import PublicRoundedIcon from '@mui/icons-material/PublicRounded'
 import SecurityRoundedIcon from '@mui/icons-material/SecurityRounded'
 import StorageRoundedIcon from '@mui/icons-material/StorageRounded'
 import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded'
+import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded'
 import {
   AppBar,
   Box,
@@ -398,57 +398,26 @@ function App() {
                   </InfoCard>
                 </Grid>
               </Grid>
+              <Grid container spacing={3} sx={{mb: {xs: 3, md: 4}}}>
+                <Grid size={{xs: 12, md: 4}}>
+                  <InfoCard icon={<WarningAmberRoundedIcon/>} title={copy.sections.terms}>
+                    <CheckedList items={copy.lists.terms}/>
+                  </InfoCard>
+                </Grid>
+                <Grid size={{xs: 12, md: 4}}>
+                  <InfoCard icon={<PublicRoundedIcon/>} title={copy.sections.clientAccountUse}>
+                    <CheckedList items={copy.lists.clientAccountUse}/>
+                  </InfoCard>
+                </Grid>
+                <Grid size={{xs: 12, md: 4}}>
+                  <InfoCard icon={<StorageRoundedIcon/>} title={copy.sections.serverAccountUse}>
+                    <CheckedList items={copy.lists.serverAccountUse}/>
+                  </InfoCard>
+                </Grid>
+              </Grid>
               <InfoCard icon={<SecurityRoundedIcon/>} title={copy.sections.serverCommands}>
                 <CommandList commands={copy.lists.serverCommands}/>
               </InfoCard>
-            </Container>
-          </Box>
-
-          <Container maxWidth="lg" sx={{py: {xs: 6, md: 9}}}>
-            <Grid container spacing={3}>
-              <Grid size={{xs: 12, md: 6}}>
-                <InfoCard icon={<KeyRoundedIcon/>} title={copy.sections.authRequired}>
-                  <Typography color="text.secondary" sx={{lineHeight: 1.7}}>
-                    {copy.sections.authRequiredBody}
-                  </Typography>
-                </InfoCard>
-              </Grid>
-              <Grid size={{xs: 12, md: 6}}>
-                <InfoCard icon={<LockRoundedIcon/>} title={copy.sections.accountStorage}>
-                  <CheckedList items={copy.lists.privacyPoints}/>
-                </InfoCard>
-              </Grid>
-            </Grid>
-          </Container>
-
-          <Box sx={{bgcolor: 'rgba(255,255,255,0.025)'}}>
-            <Container maxWidth="lg" sx={{py: {xs: 6, md: 9}}}>
-              <Grid container spacing={{xs: 4, md: 6}}>
-                <Grid size={{xs: 12, md: 5}}>
-                  <Stack spacing={2}>
-                    <Typography variant="h2" sx={{fontSize: {xs: 32, md: 44}}}>
-                      {copy.sections.privacyTitle}
-                    </Typography>
-                    <Typography color="text.secondary" sx={{lineHeight: 1.75}}>
-                      {copy.sections.privacyBody}
-                    </Typography>
-                  </Stack>
-                </Grid>
-                <Grid size={{xs: 12, md: 7}}>
-                  <Grid container spacing={3}>
-                    <Grid size={{xs: 12, sm: 6}}>
-                      <InfoCard icon={<SecurityRoundedIcon/>} title={copy.sections.authPurpose}>
-                        <CheckedList items={copy.lists.authReasons}/>
-                      </InfoCard>
-                    </Grid>
-                    <Grid size={{xs: 12, sm: 6}}>
-                      <InfoCard icon={<StorageRoundedIcon/>} title={copy.sections.storedData}>
-                        <CheckedList items={copy.lists.handledData}/>
-                      </InfoCard>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
             </Container>
           </Box>
         </Box>
