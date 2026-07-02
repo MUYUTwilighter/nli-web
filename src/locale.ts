@@ -80,9 +80,9 @@ export const localeCopy: Record<Locale, LocaleCopy> = {
     },
     hero: {
       subtitle:
-        'A Minecraft Java Edition mod that enhances the official P2P networking and friend-list support introduced in Minecraft 26.2-snapshot-7.',
+        'A Minecraft Java Edition mod for friend-based online play, presence sharing, and WebRTC joining.',
       description:
-        'NetherLink adds an Integrated Server sharing mode for clients and lets dedicated servers publish their availability to the owner’s Minecraft friend list after Microsoft/Minecraft account authorization.',
+        'NetherLink uses the NLI API backend to provide friends, friend requests, joinable instances, signaling, and TURN-assisted P2P connections for single-player worlds and dedicated servers.',
       downloadModrinth: 'Download on Modrinth',
       downloadCurseForge: 'Download on CurseForge',
       viewSource: 'View source code',
@@ -100,22 +100,23 @@ export const localeCopy: Record<Locale, LocaleCopy> = {
     },
     lists: {
       clientFeatures: [
-        'For Minecraft 26.1.2 or older, enables the full official P2P feature set.',
-        'Add an Integrated Server sharing mode for single-player worlds.',
-        'Let friends in the Minecraft friend list join the shared world without a manual approval prompt.',
-        'Stop normal client presence broadcasts except “In a joinable world” to avoid conflicts with hosted server presence.',
+        'Manage friends, friend requests, friend settings, and backend selection from the NetherLink friends screen.',
+        'Open a single-player integrated server to friends with the NetherLink multiplayer scope.',
+        'Show joinable friend instances before joining, including instance names and player avatars.',
+        'Join friends through WebRTC P2P, with TURN fallback when direct connectivity is not available.',
       ],
       serverFeatures: [
         'Link a dedicated server with a Microsoft/Minecraft account.',
-        'Publish dedicated server availability to the owner’s Minecraft friend list.',
-        'Accept incoming P2P join requests and route them into the running server.',
+        'Publish dedicated server availability as a joinable NetherLink instance.',
+        'Accept incoming WebRTC join requests and route them into the running server.',
         'Optionally use a custom authentication APP ID through the NETHERLINK_CLIENT_ID environment variable.',
       ],
       clientSteps: [
         'Install NetherLink on the client.',
-        'Launch the game and open a single-player world.',
-        'Open the multiplayer sharing screen.',
-        'Select Integrated Server as the sharing mode.',
+        'Launch Minecraft and sign in with a Microsoft/Minecraft account.',
+        'Use the Friends button to manage friends, requests, and NetherLink settings.',
+        'Open a single-player world and enter the multiplayer sharing screen.',
+        'Select NetherLink as the multiplayer scope and apply the change.',
       ],
       serverSteps: [
         'Install NetherLink on the server.',
@@ -123,7 +124,7 @@ export const localeCopy: Record<Locale, LocaleCopy> = {
         'Start the server and run /nli add.',
         'Open the login URL shown in chat or the server console and complete Microsoft authentication.',
         'Run /nli list to check configured accounts and token status.',
-        'Run /nli publish to publish the server to the account owner’s Minecraft friend list.',
+        'Run /nli publish to publish the server as a joinable NetherLink instance.',
       ],
       terms: [
         'Only run /nli add on a server you own or fully trust. We can only guarantee that NetherLink itself will not perform malicious actions with login information stored on the server; we are not responsible for account security issues or disputes caused by the server environment, administrators, other mods, plugins, malware, backups, leaks, or any other factors outside NetherLink.',
@@ -133,12 +134,12 @@ export const localeCopy: Record<Locale, LocaleCopy> = {
       ],
       clientAccountUse: [
         'On the client, NetherLink uses the Minecraft account already logged into your game client.',
-        'The client-side mod uses that account session for integrated-world sharing, friend-list joinability, and presence behavior while sharing.',
+        'The client-side mod uses that account session for friend features, integrated-world sharing, joinability, and presence behavior while sharing.',
         'The client-side mod does not use /nli add and does not store an additional Microsoft refresh token for server publishing.',
       ],
       serverAccountUse: [
         'On a dedicated server, /nli add authorizes the Microsoft/Minecraft account you choose through Microsoft device-code login.',
-        'The server uses that account to refresh Minecraft Services access, publish the server as a joinable presence, and accept P2P join requests.',
+        'The server uses that account to refresh Minecraft Services access, publish the server as a joinable presence, and accept NetherLink join requests.',
         'The server stores account data under netherlink/accounts, including refresh/access token data, token expiration data, Minecraft profile UUID/name, and related authentication metadata required for token exchange.',
       ],
       serverCommands: [
@@ -156,11 +157,11 @@ export const localeCopy: Record<Locale, LocaleCopy> = {
         },
         {
           command: '/nli publish [all|<name>]',
-          description: 'Publish server presence and start accepting P2P joins.',
+          description: 'Publish server presence and start accepting NetherLink joins.',
         },
         {
           command: '/nli revoke [all|<name>]',
-          description: 'Revoke server presence and stop accepting P2P joins for the account.',
+          description: 'Revoke server presence and stop accepting NetherLink joins for the account.',
         },
         {
           command: '/nli toggle <name>',
@@ -187,9 +188,9 @@ export const localeCopy: Record<Locale, LocaleCopy> = {
     },
     hero: {
       subtitle:
-        'NetherLink 是一个 Minecraft Java 版模组，用于增强 Minecraft 26.2-snapshot-7 引入的官方 P2P 网络与好友列表支持。',
+        'NetherLink 是一个面向 Minecraft Java 版好友联机、在线状态共享与 WebRTC 加入的模组。',
       description:
-        'NetherLink 为客户端添加 Integrated Server 分享模式，并允许专用服务器在完成 Microsoft/Minecraft 账号授权后，将服务器可用状态发布到账号所有者的 Minecraft 好友列表。',
+        'NetherLink 使用 NLI API 后端提供好友、好友申请、可加入实例、信令与 TURN 辅助的 P2P 连接能力，可用于单人世界与专用服务器。',
       downloadModrinth: '在 Modrinth 下载',
       downloadCurseForge: '在 CurseForge 下载',
       viewSource: '查看源代码',
@@ -207,22 +208,23 @@ export const localeCopy: Record<Locale, LocaleCopy> = {
     },
     lists: {
       clientFeatures: [
-        '对于 Minecraft 26.1.2 或更早版本，启用完整的官方 P2P 功能集。',
-        '为单人世界添加 Integrated Server 分享模式。',
-        '允许经过批准的好友请求并加入共享世界。',
-        '除“In a joinable world”外停止普通客户端在线状态广播，避免与托管服务器状态冲突。',
+        '通过 NetherLink 好友界面管理好友、好友申请、好友设置与后端选择。',
+        '在多人游戏分享界面中选择 NetherLink，将单人集成服务器向好友开放。',
+        '在加入前查看好友的可加入实例，包括实例名称与玩家头像。',
+        '通过 WebRTC P2P 加入好友，并在无法直连时使用 TURN 回退。',
       ],
       serverFeatures: [
         '将专用服务器与 Microsoft/Minecraft 账号关联。',
-        '向所有者的 Minecraft 好友列表发布专用服务器可用状态。',
-        '接受传入的 P2P 加入请求，并将其路由到正在运行的服务器。',
+        '将专用服务器发布为可加入的 NetherLink 实例。',
+        '接受传入的 WebRTC 加入请求，并将其路由到正在运行的服务器。',
         '可通过 NETHERLINK_CLIENT_ID 环境变量使用自己的认证 APP ID。',
       ],
       clientSteps: [
         '在客户端安装 NetherLink。',
-        '启动游戏并打开一个单人世界。',
-        '打开多人游戏分享界面。',
-        '选择 Integrated Server 作为分享模式。',
+        '启动 Minecraft，并使用 Microsoft/Minecraft 账号登录。',
+        '通过好友按钮管理好友、申请与 NetherLink 设置。',
+        '打开一个单人世界，并进入多人游戏分享界面。',
+        '选择 NetherLink 作为联机范围并应用更改。',
       ],
       serverSteps: [
         '在服务器安装 NetherLink。',
@@ -230,7 +232,7 @@ export const localeCopy: Record<Locale, LocaleCopy> = {
         '启动服务器并运行 /nli add。',
         '打开聊天栏或服务器控制台中显示的登录 URL，并完成 Microsoft 认证。',
         '运行 /nli list 检查已配置账号和令牌状态。',
-        '运行 /nli publish 将服务器发布到账号所有者的 Minecraft 好友列表。',
+        '运行 /nli publish 将服务器发布为可加入的 NetherLink 实例。',
       ],
       terms: [
         '只在你自己拥有或完全信任的服务器上运行 /nli add。我们只能保证 NetherLink 本身不会对服务端存储的登录信息进行任何恶意行为；对于服务端环境、管理员、其他模组、插件、恶意软件、备份、泄露或任何 NetherLink 之外因素导致的账号安全问题与纠纷，我们概不负责。',
@@ -240,12 +242,12 @@ export const localeCopy: Record<Locale, LocaleCopy> = {
       ],
       clientAccountUse: [
         '在客户端，NetherLink 使用你已经登录到游戏客户端的 Minecraft 账号。',
-        '客户端模组会使用该账号会话来支持集成世界分享、好友列表可加入状态以及分享时的在线状态行为。',
+        '客户端模组会使用该账号会话来支持好友功能、集成世界分享、可加入状态以及分享时的在线状态行为。',
         '客户端模组不会使用 /nli add，也不会为了服务端发布功能额外存储 Microsoft 刷新令牌。',
       ],
       serverAccountUse: [
         '在专用服务器上，/nli add 会通过 Microsoft 设备码登录授权你选择的 Microsoft/Minecraft 账号。',
-        '服务器会使用该账号刷新 Minecraft Services 访问权限、将服务器发布为可加入状态，并接受 P2P 加入请求。',
+        '服务器会使用该账号刷新 Minecraft Services 访问权限、将服务器发布为可加入状态，并接受 NetherLink 加入请求。',
         '服务器会在 netherlink/accounts 下存储账号数据，包括刷新/访问令牌数据、令牌过期数据、Minecraft 档案 UUID/名称，以及令牌交换所需的相关认证元数据。',
       ],
       serverCommands: [
@@ -263,11 +265,11 @@ export const localeCopy: Record<Locale, LocaleCopy> = {
         },
         {
           command: '/nli publish [all|<name>]',
-          description: '发布服务器状态并开始接受 P2P 加入。',
+          description: '发布服务器状态并开始接受 NetherLink 加入。',
         },
         {
           command: '/nli revoke [all|<name>]',
-          description: '撤销服务器状态并停止接受该账号的 P2P 加入。',
+          description: '撤销服务器状态并停止接受该账号的 NetherLink 加入。',
         },
         {
           command: '/nli toggle <name>',
